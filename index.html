@@ -1,88 +1,476 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammadreza Sheikholeslami - Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for additional tweaks */
+        body {
+            scroll-behavior: smooth;
+        }
+        .section-header {
+            border-bottom: 2px solid #4f46e5;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #4f46e5;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white fixed w-full top-0 shadow-lg z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">Mohammadreza Sheikholeslami</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#about" class="hover:text-indigo-200">About</a></li>
+                <li><a href="#experience" class="hover:text-indigo-200">Experience</a></li>
+                <li><a href="#certifications" class="hover:text-indigo-200">Certifications</a></li>
+                <li><a href="#education" class="hover:text-indigo-200">Education</a></li>
+                <li><a href="#projects" class="hover:text-indigo-200">Projects</a></li>
+                <li><a href="#awards" class="hover:text-indigo-200">Awards</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-16 mt-16">
+        <!-- About Me -->
+        <section id="about" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">About Me</h2>
+            <p class="text-lg">
+                Computer Science student at Amirkabir University of Technology with machine learning, SQL, and data analysis expertise. Proficient in Python with hands-on experience using NumPy, Pandas, and Matplotlib for data processing and visualization. Experienced in developing Java-based applications using JavaFX, MySQL, and Git for version control. Solid understanding of deep learning and natural language processing, with a strong interest in applying AI to real-world challenges. Also experienced in developing trading bots with MQL4 and using Pine Script for financial market analysis.
+            </p>
+            <p class="mt-2"><strong>Languages:</strong> English (Fluent), Persian (Native)</p>
+        </section>
+
+        <!-- Work Experience -->
+        <section id="experience" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Work Experience</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">Teaching Assistant, Advanced Programming</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology, Tehran | 2025</p>
+                    <p>Instructor: Prof. Mahdi Ghatee</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Programming Languages: Java</li>
+                        <li>Concepts: Object-Oriented Programming (OOP), Data Structures, Algorithms</li>
+                        <li>Tools & Platforms: Git, GitHub</li>
+                        <li>Databases: MySQL</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Machine Learning Specialization</h3>
+                    <p class="text-gray-600">Stanford University | Oct 2024 - Mar 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Building ML models with NumPy and scikit-learn</li>
+                        <li>Supervised models for prediction and binary classification (linear, logistic regression)</li>
+                        <li>Neural networks with TensorFlow for multiclass classification</li>
+                        <li>Decision trees and tree ensemble methods</li>
+                        <li>Unsupervised learning: clustering and anomaly detection</li>
+                        <li>Recommender systems: collaborative filtering and content-based deep learning</li>
+                        <li>Deep reinforcement learning</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Professional Project-Oriented Course in Machine Learning With Python</h3>
+                    <p class="text-gray-600">Quera | Aug 2024 - Dec 2024</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Project Management Tips</li>
+                        <li>Data Preparation and Feature Engineering</li>
+                        <li>Regression Techniques</li>
+                        <li>Classification Algorithms</li>
+                        <li>Model Evaluation, Selection, and Regularization</li>
+                        <li>Artificial Neural Networks</li>
+                        <li>Introduction to Natural Language Processing</li>
+                        <li>Unsupervised Learning and Clustering</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Task-Oriented Course in Data Analysis With Python</h3>
+                    <p class="text-gray-600">Quera | Jul 2024 - Nov 2024</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Data cleaning and preparation</li>
+                        <li>Data analysis and interpretation of results</li>
+                        <li>Data visualization</li>
+                        <li>NumPy, Pandas, Matplotlib, and Seaborn libraries</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Databases and SQL for Data Science</h3>
+                    <p class="text-gray-600">IBM | Nov 2024 - Jan 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Creating, deleting, and modifying databases and tables</li>
+                        <li>Filtering and grouping data</li>
+                        <li>Joining tables</li>
+                        <li>Optimizing data processing</li>
+                        <li>Built-in functions and advanced concepts (views, stored procedures)</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Task-Oriented Course in Version Control With Git</h3>
+                    <p class="text-gray-600">Quera | Jan 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Installing and running Git</li>
+                        <li>Basic commands (pull, push, commit)</li>
+                        <li>Working with branches, merge, and rebase</li>
+                        <li>Diagnosing and correcting repository errors</li>
+                        <li>Supplementary commands (stash, cherry-pick)</li>
+                        <li>GitHub and GitLab</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section id="education" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Education</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">Bachelor of Science in Computer Science</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology, Tehran | Since 2023</p>
+                    <p>GPA: 18.97 / 20.0</p>
+                </div>
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">High School Diploma in Mathematics</h3>
+                    <p class="text-gray-600">Allameh Helli (Sampad), Tehran | 2020 - 2023</p>
+                    <p>GPA: 18.87 / 20.0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Projects -->
+        <section id="projects" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Personal Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">News Text Classification</h3>
+                    <p class="text-gray-600">Mar 2024 - Sep 2024</p>
+                    <p>Implemented a machine learning-based news text classification system to categorize news articles (e.g., sports, politics, business) using NLP techniques and Python with Jupyter notebooks.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">House Price Predictor</h3>
+                    <p class="text-gray-600">Nov 2024 - Mar 2025</p>
+                    <p>Developed a machine learning model to predict house prices based on features like area, bedrooms, and location using historical data from Kaggle.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Portfolio Management</h3>
+                    <p class="text-gray-600">Jan 2024 - Feb 2024</p>
+                    <p>Designed a system for tracking and analyzing investment portfolios, focusing on data analysis, risk management, and visualization for data-driven financial decisions.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Java Store</h3>
+                    <p class="text-gray-600">Mar 2023</p>
+                    <p>Built an online store application in Java with a JavaFX GUI and MySQL database, applying OOP and SOLID principles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards and Honors -->
+        <section id="awards" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Awards and Honors</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">ATC II (Algorithmic Trading Challenge)</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology | Jun 2025</p>
+                    <p>Won 7th place in a competition focused on developing algorithmic trading strategies using historical market data.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Mohammadreza Sheikholeslami. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for smooth scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+廢
+
+System: It looks like the code was cut off. I'll complete the JavaScript section and ensure the HTML file is fully functional for your GitHub Pages resume website. The JavaScript will include smooth scrolling for navigation links, and I'll ensure the entire `index.html` file is wrapped in the `<xaiArtifact>` tag with the same `artifact_id` as provided, since this is a continuation of the same artifact. Below is the complete, corrected version of the `index.html` file.
+
+### Steps to Deploy on GitHub Pages
+1. **Create a GitHub Repository**: If you haven't already, create a repository (e.g., `username.github.io` for a personal site or any repo name for a project site).
+2. **Save the File**: Save the code below as `index.html` in the root of your repository or in a `docs` folder (depending on your GitHub Pages settings).
+3. **Push to GitHub**: Commit and push the file to your repository.
+4. **Enable GitHub Pages**: In your repository settings, enable GitHub Pages and select the branch (usually `main`) and folder (root or `docs`) where `index.html` is located.
+5. **Access Your Site**: Visit `https://username.github.io` or `https://username.github.io/repo-name` to see your resume website.
+
+<xaiArtifact artifact_id="a923e282-5881-4451-be64-74bf56eff7c6" artifact_version_id="dd737dbb-2836-4862-8fd2-903ff38f57a3" title="index.html" contentType="text/html">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mohammadreza Sheikholeslami - Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Roboto', sans-serif; line-height: 1.6; background: #f7f7f7; color: #333; margin: 0; padding: 2rem; }
-    .container { max-width: 900px; margin: auto; background: #fff; padding: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h1, h2, h3 { color: #005f73; }
-    a { color: #0a9396; text-decoration: none; }
-    .section { margin-bottom: 2rem; }
-    ul { padding-left: 1.5rem; }
-    .contact p { margin: 0.3rem 0; }
-    .skills, .languages { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .skills div, .languages div { background: #e0fbfc; padding: 0.5rem 1rem; border-radius: 5px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammadreza Sheikholeslami - Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for additional tweaks */
+        body {
+            scroll-behavior: smooth;
+        }
+        .section-header {
+            border-bottom: 2px solid #4f46e5;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #4f46e5;
+            border-radius: 50%;
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Mohammadreza Sheikholeslami</h1>
-    <div class="contact">
-      <p>Email: <a href="mailto:mr.sheikholeslami84@gmail.com">mr.sheikholeslami84@gmail.com</a></p>
-      <p>Location: Tehran, Iran</p>
-      <p>Phone: +98 920 322 8135</p>
-      <p>GitHub: <a href="https://github.com/MohammadrezaSheikholeslami84">github.com/MohammadrezaSheikholeslami84</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/mohammadrezasheikholeslami">linkedin.com/in/mohammadrezasheikholeslami</a></p>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white fixed w-full top-0 shadow-lg z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">Mohammadreza Sheikholeslami</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#about" class="hover:text-indigo-200">About</a></li>
+                <li><a href="#experience" class="hover:text-indigo-200">Experience</a></li>
+                <li><a href="#certifications" class="hover:text-indigo-200">Certifications</a></li>
+                <li><a href="#education" class="hover:text-indigo-200">Education</a></li>
+                <li><a href="#projects" class="hover:text-indigo-200">Projects</a></li>
+                <li><a href="#awards" class="hover:text-indigo-200">Awards</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-16 mt-16">
+        <!-- About Me -->
+        <section id="about" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">About Me</h2>
+            <p class="text-lg">
+                Computer Science student at Amirkabir University of Technology with machine learning, SQL, and data analysis expertise. Proficient in Python with hands-on experience using NumPy, Pandas, and Matplotlib for data processing and visualization. Experienced in developing Java-based applications using JavaFX, MySQL, and Git for version control. Solid understanding of deep learning and natural language processing, with a strong interest in applying AI to real-world challenges. Also experienced in developing trading bots with MQL4 and using Pine Script for financial market analysis.
+            </p>
+            <p class="mt-2"><strong>Languages:</strong> English (Fluent), Persian (Native)</p>
+        </section>
+
+        <!-- Work Experience -->
+        <section id="experience" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Work Experience</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">Teaching Assistant, Advanced Programming</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology, Tehran | 2025</p>
+                    <p>Instructor: Prof. Mahdi Ghatee</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Programming Languages: Java</li>
+                        <li>Concepts: Object-Oriented Programming (OOP), Data Structures, Algorithms</li>
+                        <li>Tools & Platforms: Git, GitHub</li>
+                        <li>Databases: MySQL</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Machine Learning Specialization</h3>
+                    <p class="text-gray-600">Stanford University | Oct 2024 - Mar 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Building ML models with NumPy and scikit-learn</li>
+                        <li>Supervised models for prediction and binary classification (linear, logistic regression)</li>
+                        <li>Neural networks with TensorFlow for multiclass classification</li>
+                        <li>Decision trees and tree ensemble methods</li>
+                        <li>Unsupervised learning: clustering and anomaly detection</li>
+                        <li>Recommender systems: collaborative filtering and content-based deep learning</li>
+                        <li>Deep reinforcement learning</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Professional Project-Oriented Course in Machine Learning With Python</h3>
+                    <p class="text-gray-600">Quera | Aug 2024 - Dec 2024</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Project Management Tips</li>
+                        <li>Data Preparation and Feature Engineering</li>
+                        <li>Regression Techniques</li>
+                        <li>Classification Algorithms</li>
+                        <li>Model Evaluation, Selection, and Regularization</li>
+                        <li>Artificial Neural Networks</li>
+                        <li>Introduction to Natural Language Processing</li>
+                        <li>Unsupervised Learning and Clustering</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Task-Oriented Course in Data Analysis With Python</h3>
+                    <p class="text-gray-600">Quera | Jul 2024 - Nov 2024</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Data cleaning and preparation</li>
+                        <li>Data analysis and interpretation of results</li>
+                        <li>Data visualization</li>
+                        <li>NumPy, Pandas, Matplotlib, and Seaborn libraries</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Databases and SQL for Data Science</h3>
+                    <p class="text-gray-600">IBM | Nov 2024 - Jan 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Creating, deleting, and modifying databases and tables</li>
+                        <li>Filtering and grouping data</li>
+                        <li>Joining tables</li>
+                        <li>Optimizing data processing</li>
+                        <li>Built-in functions and advanced concepts (views, stored procedures)</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Task-Oriented Course in Version Control With Git</h3>
+                    <p class="text-gray-600">Quera | Jan 2025</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Installing and running Git</li>
+                        <li>Basic commands (pull, push, commit)</li>
+                        <li>Working with branches, merge, and rebase</li>
+                        <li>Diagnosing and correcting repository errors</li>
+                        <li>Supplementary commands (stash, cherry-pick)</li>
+                        <li>GitHub and GitLab</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section id="education" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Education</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">Bachelor of Science in Computer Science</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology, Tehran | Since 2023</p>
+                    <p>GPA: 18.97 / 20.0</p>
+                </div>
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">High School Diploma in Mathematics</h3>
+                    <p class="text-gray-600">Allameh Helli (Sampad), Tehran | 2020 - 2023</p>
+                    <p>GPA: 18.87 / 20.0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Projects -->
+        <section id="projects" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Personal Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">News Text Classification</h3>
+                    <p class="text-gray-600">Mar 2024 - Sep 2024</p>
+                    <p>Implemented a machine learning-based news text classification system to categorize news articles (e.g., sports, politics, business) using NLP techniques and Python with Jupyter notebooks.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">House Price Predictor</h3>
+                    <p class="text-gray-600">Nov 2024 - Mar 2025</p>
+                    <p>Developed a machine learning model to predict house prices based on features like area, bedrooms, and location using historical data from Kaggle.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Portfolio Management</h3>
+                    <p class="text-gray-600">Jan 2024 - Feb 2024</p>
+                    <p>Designed a system for tracking and analyzing investment portfolios, focusing on data analysis, risk management, and visualization for data-driven financial decisions.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold">Java Store</h3>
+                    <p class="text-gray-600">Mar 2023</p>
+                    <p>Built an online store application in Java with a JavaFX GUI and MySQL database, applying OOP and SOLID principles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards and Honors -->
+        <section id="awards" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4 section-header">Awards and Honors</h2>
+            <div class="relative pl-8">
+                <div class="timeline-item relative mb-6">
+                    <h3 class="text-xl font-bold">ATC II (Algorithmic Trading Challenge)</h3>
+                    <p class="text-gray-600">Amirkabir University of Technology | Jun 2025</p>
+                    <p>Won 7th place in a competition focused on developing algorithmic trading strategies using historical market data.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="section">
-      <h2>About Me</h2>
-      <p>Computer Science student at Amirkabir University of Technology with a passion for machine learning, NLP, and data analysis. Experienced in Python, Java, and SQL. Enthusiastic about AI applications in real-world domains and financial systems.</p>
-    </div>
+    <!-- Footer -->
+    <footer class="bg-indigo-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Mohammadreza Sheikholeslami. All rights reserved.</p>
+        </div>
+    </footer>
 
-    <div class="section">
-      <h2>Education</h2>
-      <p><strong>B.Sc. in Computer Science</strong>, Amirkabir University of Technology (2023–Present)<br>GPA: 18.97 / 20</p>
-      <p><strong>High School Diploma</strong>, Allameh Helli (Sampad), Tehran (2020–2023)<br>GPA: 18.87 / 20</p>
-    </div>
-
-    <div class="section">
-      <h2>Skills</h2>
-      <div class="skills">
-        <div>Python</div><div>Java</div><div>C</div><div>MQL4</div><div>PineScript</div>
-        <div>Machine Learning</div><div>Deep Learning</div><div>NLP</div><div>EDA</div>
-        <div>Pandas</div><div>Numpy</div><div>Matplotlib</div><div>Seaborn</div>
-        <div>Tensorflow</div><div>NLTK</div><div>Spacy</div><div>MySQL</div>
-        <div>SQL Server</div><div>PostgreSQL</div><div>Git</div><div>GitHub</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Languages</h2>
-      <div class="languages">
-        <div>Persian - Native</div>
-        <div>English - Fluent</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Certifications</h2>
-      <ul>
-        <li>Machine Learning Specialization – Stanford University (2024–2025)</li>
-        <li>Professional ML Course with Python – Quera (2024)</li>
-        <li>Task-Oriented Data Analysis with Python – Quera (2024)</li>
-        <li>Databases and SQL for Data Science – IBM (2024–2025)</li>
-        <li>Version Control with Git – Quera (2025)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Projects</h2>
-      <ul>
-        <li><strong>News Text Classification</strong> – NLP and classification of news content (<a href="https://github.com/MohammadrezaSheikholeslami84/News-Text-Classification">GitHub</a>)</li>
-        <li><strong>House Price Predictor</strong> – ML-based price prediction using housing data (<a href="https://github.com/MohammadrezaSheikholeslami84/House-Price-Predictor">GitHub</a>)</li>
-        <li><strong>Portfolio Management</strong> – Visual financial tracking and investment analysis (<a href="https://github.com/MohammadrezaSheikholeslami84/Portfolio-Management">GitHub</a>)</li>
-        <li><strong>Java Store</strong> – Java GUI e-commerce app with MySQL backend (<a href="https://github.com/MohammadrezaSheikholeslami84/Jave-Store-GUI">GitHub</a>)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Honors & Awards</h2>
-      <p>7th Place – ATC II Algorithmic Trading Challenge (2025), Amirkabir University of Technology</p>
-    </div>
-  </div>
+    <!-- JavaScript for smooth scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
