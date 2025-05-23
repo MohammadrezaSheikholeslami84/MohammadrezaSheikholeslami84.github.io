@@ -14,6 +14,13 @@
 
                 .section-header {
                         border-bottom: 2px solid #4BA5F2;
+                        display: inline-block;
+                        /* For typing effect */
+                        overflow: hidden;
+                        /* Hide text during typing */
+                        white-space: nowrap;
+                        /* Keep text on one line */
+                        animation: typing 2s steps(40, end) forwards;
                 }
 
                 .timeline-item::before {
@@ -61,6 +68,18 @@
                         transform: translateX(0);
                 }
 
+                /* Text animation for non-headers */
+                .text-animate {
+                        opacity: 0;
+                        transform: translateY(10px);
+                        animation: bounceFade 0.6s ease-out forwards;
+                }
+
+                .text-animate.visible {
+                        opacity: 1;
+                        transform: translateY(0);
+                }
+
                 /* Box-specific animations */
                 .box {
                         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -77,7 +96,31 @@
                         transition-delay: calc(0.15s * var(--animation-order));
                 }
 
-                /* Pulse animation for initial load */
+                /* Navigation buttons */
+                .nav-buttons {
+                        position: fixed;
+                        right: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        z-index: 20;
+                }
+
+                .nav-button {
+                        background-color: #303B44;
+                        padding: 10px;
+                        border-radius: 50%;
+                        transition: transform 0.2s ease, background-color 0.2s ease;
+                }
+
+                .nav-button:hover {
+                        transform: scale(1.2);
+                        background-color: #4BA5F2;
+                }
+
+                /* Keyframes */
                 @keyframes pulse {
 
                         0%,
@@ -87,6 +130,33 @@
 
                         50% {
                                 transform: scale(1.02);
+                        }
+                }
+
+                @keyframes typing {
+                        from {
+                                width: 0;
+                        }
+
+                        to {
+                                width: 100%;
+                        }
+                }
+
+                @keyframes bounceFade {
+                        0% {
+                                opacity: 0;
+                                transform: translateY(10px);
+                        }
+
+                        60% {
+                                opacity: 1;
+                                transform: translateY(-5px);
+                        }
+
+                        100% {
+                                opacity: 1;
+                                transform: translateY(0);
                         }
                 }
 
@@ -147,13 +217,30 @@
                 </div>
         </nav>
 
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+                <button class="nav-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                        aria-label="Scroll to top">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4l-8 8h6v8h4v-8h6l-8-8z" />
+                        </svg>
+                </button>
+                <button class="nav-button"
+                        onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"
+                        aria-label="Scroll to bottom">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 20l8-8h-6v-8h-4v8H4l8 8z" />
+                        </svg>
+                </button>
+        </div>
+
         <!-- Main Content -->
         <div class="container mx-auto px-4 py-16 mt-16">
                 <!-- About Me -->
                 <section id="about" class="mb-12 fade-in">
                         <h2 class="text-2xl font-semibold mb-4 section-header" style="color: #0762b2;">About Me</h2>
                         <div class="flex items-center mb-4">
-                                <p class="text-lg">
+                                <p class="text-lg text-animate">
                                         Computer Science student at Amirkabir University of Technology with machine
                                         learning, SQL, and data analysis expertise.
                                         Proficient in Python with hands-on experience using NumPy, Pandas, and
@@ -177,16 +264,18 @@
                         </h2>
                         <div class="relative pl-8">
                                 <div class="timeline-item relative mb-6 slide-in-left">
-                                        <h3 class="text-xl font-bold">Teaching Assistant: Advanced Programming</h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Amirkabir University of
-                                                        Technology</span>, Tehran | 2025</p>
-                                        <p>Instructor: Prof. Mahdi Ghatee</p>
+                                        <h3 class="text-xl font-bold text-animate">Teaching Assistant: Advanced
+                                                Programming</h3>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Amirkabir
+                                                        University of Technology</span>, Tehran | 2025</p>
+                                        <p class="text-animate">Instructor: Prof. Mahdi Ghatee</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li><b>Programming Languages:</b> Java</li>
-                                                <li><b>Concepts:</b> Object-Oriented Programming (OOP), Data Structures,
+                                                <li class="text-animate"><b>Programming Languages:</b> Java</li>
+                                                <li class="text-animate"><b>Concepts:</b> Object-Oriented Programming
+                                                        (OOP), Data Structures,
                                                         Algorithms</li>
-                                                <li><b>Tools & Platforms:</b> Git, GitHub</li>
-                                                <li><b>Databases:</b> MySQL</li>
+                                                <li class="text-animate"><b>Tools & Platforms:</b> Git, GitHub</li>
+                                                <li class="text-animate"><b>Databases:</b> MySQL</li>
                                         </ul>
                                 </div>
                         </div>
@@ -198,72 +287,77 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 1;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Programming Languages
-                                        </h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">
+                                                Programming Languages</h3>
                                         <ul class="list-disc ml-6">
-                                                <li>Python</li>
-                                                <li>Java</li>
-                                                <li>C</li>
-                                                <li>MQL4</li>
-                                                <li>PineScript</li>
+                                                <li class="text-animate">Python</li>
+                                                <li class="text-animate">Java</li>
+                                                <li class="text-animate">C</li>
+                                                <li class="text-animate">MQL4</li>
+                                                <li class="text-animate">PineScript</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 2;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">AI</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">AI</h3>
                                         <ul class="list-disc ml-6">
-                                                <li>Machine Learning</li>
-                                                <li>Deep Learning</li>
-                                                <li>Natural Language Processing (NLP)</li>
-                                                <li>Data Preprocessing</li>
-                                                <li>Exploratory Data Analysis (EDA)</li>
-                                                <li>Data Visualization</li>
+                                                <li class="text-animate">Machine Learning</li>
+                                                <li class="text-animate">Deep Learning</li>
+                                                <li class="text-animate">Natural Language Processing (NLP)</li>
+                                                <li class="text-animate">Data Preprocessing</li>
+                                                <li class="text-animate">Exploratory Data Analysis (EDA)</li>
+                                                <li class="text-animate">Data Visualization</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 3;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Frameworks and
-                                                Libraries</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">
+                                                Frameworks and Libraries</h3>
                                         <ul class="list-disc ml-6">
-                                                <li>Pandas</li>
-                                                <li>NumPy</li>
-                                                <li>Matplotlib</li>
-                                                <li>Seaborn</li>
-                                                <li>NLTK</li>
-                                                <li>Spacy</li>
-                                                <li>Scikit-Learn</li>
-                                                <li>TensorFlow</li>
+                                                <li class="text-animate">Pandas</li>
+                                                <li class="text-animate">NumPy</li>
+                                                <li class="text-animate">Matplotlib</li>
+                                                <li class="text-animate">Seaborn</li>
+                                                <li class="text-animate">NLTK</li>
+                                                <li class="text-animate">Spacy</li>
+                                                <li class="text-animate">Scikit-Learn</li>
+                                                <li class="text-animate">TensorFlow</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 4;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Databases</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">
+                                                Databases</h3>
                                         <ul class="list-disc ml-6">
-                                                <li>MySQL</li>
-                                                <li>SQL Server</li>
-                                                <li>PostgreSQL</li>
+                                                <li class="text-animate">MySQL</li>
+                                                <li class="text-animate">SQL Server</li>
+                                                <li class="text-animate">PostgreSQL</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 5;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Concepts</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">Concepts
+                                        </h3>
                                         <ul class="list-disc ml-6">
-                                                <li>Object-Oriented Programming (OOP)</li>
+                                                <li class="text-animate">Object-Oriented Programming (OOP)</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 6;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Others</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">Others
+                                        </h3>
                                         <ul class="list-disc ml-6">
-                                                <li>Git</li>
-                                                <li>GitHub</li>
+                                                <li class="text-animate">Git</li>
+                                                <li class="text-animate">GitHub</li>
                                         </ul>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 7;">
-                                        <h3 class="text-lg font-bold mb-2" style="color: #014C9A;">Languages</h3>
+                                        <h3 class="text-lg font-bold mb-2 text-animate" style="color: #014C9A;">
+                                                Languages</h3>
                                         <ul class="list-disc ml-6">
-                                                <li>English (Fluent)</li <li>Persian (Native)</li>
+                                                <li class="text-animate">English (Fluent)</li>
+                                                <li class="text-animate">Persian (Native)</li>
                                         </ul>
                                 </div>
                         </div>
@@ -276,109 +370,118 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-left"
                                         style="--animation-order: 1;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Machine Learning
-                                                Specialization</h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Stanford
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Machine Learning Specialization</h3>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Stanford
                                                         University</span> | Oct 2024 - Mar 2025</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li>Building ML models with NumPy and scikit-learn, building and
-                                                        training
+                                                <li class="text-animate">Building ML models with NumPy and scikit-learn,
+                                                        building and training
                                                         supervised models for prediction and binary classification tasks
                                                         (linear,
                                                         logistic regression)</li>
-                                                <li>Building and training neural networks with TensorFlow to perform
-                                                        multiclass classification, and building and using
+                                                <li class="text-animate">Building and training neural networks with
+                                                        TensorFlow to perform multiclass classification, and building
+                                                        and using
                                                         decision trees and tree ensemble
                                                         methods</li>
-                                                <li>Applying best practices for ML development and using unsupervised
+                                                <li class="text-animate">Applying best practices for ML development and
+                                                        using unsupervised
                                                         learning techniques for unsupervised learning including
                                                         clustering and
                                                         anomaly detection</li>
-                                                <li>Building recommender systems with the collaborative filter approach
-                                                        and
+                                                <li class="text-animate">Building recommender systems with the
+                                                        collaborative filter approach and
                                                         content-based deep learning approach, and building a deep
                                                         reinforcement
                                                         learning model</li>
                                         </ul>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://www.coursera.org/account/accomplishments/specialization/FXCWB3DC2QBN"
                                                         class="text-indigo-600 hover:underline">View
                                                         Certification</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 2;">
-                                        <h2 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Professional
-                                                Project-Oriented Course in ML With Python</h2>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Quera</span> | Aug 2024 -
-                                                Dec 2024</p>
+                                        <h2 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Professional Project-Oriented Course in ML With Python</h2>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Quera</span>
+                                                | Aug 2024 - Dec 2024</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li>Project Management Tips</li>
-                                                <li>Data Preparation and Feature Engineering</li>
-                                                <li>Regression Techniques</li>
-                                                <li>Classification Algorithms</li>
-                                                <li>Model Evaluation, Selection, and Regularization</li>
-                                                <li>Artificial Neural Networks</li>
-                                                <li>Introduction to Natural Language Processing</li>
-                                                <li>Unsupervised Learning and Clustering</li>
+                                                <li class="text-animate">Project Management Tips</li>
+                                                <li class="text-animate">Data Preparation and Feature Engineering</li>
+                                                <li class="text-animate">Regression Techniques</li>
+                                                <li class="text-animate">Classification Algorithms</li>
+                                                <li class="text-animate">Model Evaluation, Selection, and Regularization
+                                                </li>
+                                                <li class="text-animate">Artificial Neural Networks</li>
+                                                <li class="text-animate">Introduction to Natural Language Processing
+                                                </li>
+                                                <li class="text-animate">Unsupervised Learning and Clustering</li>
                                         </ul>
-                                        <p class="mt-2"><a href="https://quera.org/certificate/2RImf2z8/"
+                                        <p class="mt-2 text-animate"><a href="https://quera.org/certificate/2RImf2z8/"
                                                         class="text-indigo-600 hover:underline">View
                                                         Certification</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-left"
                                         style="--animation-order: 3;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Task-Oriented
-                                                Course in Data Analysis With Python
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Task-Oriented Course in Data Analysis With Python
                                         </h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Quera</span> | Jul 2024 -
-                                                Nov 2024</p>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Quera</span>
+                                                | Jul 2024 - Nov 2024</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li>Data cleaning and preparation</li>
-                                                <li>Data analysis and interpretation of results</li>
-                                                <li>Data visualization</li>
-                                                <li>NumPy, Pandas, Matplotlib, and Seaborn libraries</li>
+                                                <li class="text-animate">Data cleaning and preparation</li>
+                                                <li class="text-animate">Data analysis and interpretation of results
+                                                </li>
+                                                <li class="text-animate">Data visualization</li>
+                                                <li class="text-animate">NumPy, Pandas, Matplotlib, and Seaborn
+                                                        libraries</li>
                                         </ul>
-                                        <p class="mt-2"><a href="https://quera.org/certificate/tMdKNSbd/"
+                                        <p class="mt-2 text-animate"><a href="https://quera.org/certificate/tMdKNSbd/"
                                                         class="text-indigo-600 hover:underline">View
                                                         Certification</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 4;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Databases and SQL
-                                                for Data Science</h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">IBM</span> | Nov 2024 -
-                                                Jan 2025</p>
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Databases and SQL for Data Science</h3>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">IBM</span> |
+                                                Nov 2024 - Jan 2025</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li>Creating, deleting, and modifying databases and tables</li>
-                                                <li>Getting, deleting, and modifying data</li>
-                                                <li>Filtering and grouping data</li>
-                                                <li>Joining tables</li>
-                                                <li>Optimizing data processing</li>
-                                                <li>Built-in functions for working with data and advanced concepts
-                                                        (views, stored procedures)
+                                                <li class="text-animate">Creating, deleting, and modifying databases and
+                                                        tables</li>
+                                                <li class="text-animate">Getting, deleting, and modifying data</li>
+                                                <li class="text-animate">Filtering and grouping data</li>
+                                                <li class="text-animate">Joining tables</li>
+                                                <li class="text-animate">Optimizing data processing</li>
+                                                <li class="text-animate">Built-in functions for working with data and
+                                                        advanced concepts (views, stored procedures)
                                                 </li>
                                         </ul>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://www.credly.com/badges/a8906202-402d-4c72-833b-006bb99406bf/linked_in_profile"
                                                         class="text-indigo-600 hover:underline">View
                                                         Certification</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-left"
                                         style="--animation-order: 5;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Task-Oriented
-                                                Course in Version Control With Git
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Task-Oriented Course in Version Control With Git
                                         </h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Quera</span> | Jan 2025
-                                        </p>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Quera</span>
+                                                | Jan 2025</p>
                                         <ul class="list-disc ml-6 mt-2">
-                                                <li>Installing and running Git</li>
-                                                <li>Basic commands (pull, push, commit)</li>
-                                                <li>Working with branches, merge, and rebase</li>
-                                                <li>Diagnosing and correcting repository errors</li>
-                                                <li>Supplementary commands (stash, cherry-pick)</li>
-                                                <li>GitHub and GitLab</li>
+                                                <li class="text-animate">Installing and running Git</li>
+                                                <li class="text-animate">Basic commands (pull, push, commit)</li>
+                                                <li class="text-animate">Working with branches, merge, and rebase</li>
+                                                <li class="text-animate">Diagnosing and correcting repository errors
+                                                </li>
+                                                <li class="text-animate">Supplementary commands (stash, cherry-pick)
+                                                </li>
+                                                <li class="text-animate">GitHub and GitLab</li>
                                         </ul>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://quera.org/media/public/certificate/d93b4054a1a64c7d83a385e63c8bc194.png"
                                                         class="text-indigo-600 hover:underline">View
                                                         Certification</a></p>
@@ -391,17 +494,19 @@
                         <h2 class="text-2xl font-semibold mb-4 section-header" style="color: #0762b2;">Education</h2>
                         <div class="relative pl-8">
                                 <div class="timeline-item relative mb-6 slide-in-left">
-                                        <h3 class="text-xl font-bold">Bachelor of Science in Computer Science</h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Amirkabir University of
-                                                        Technology</span>, Tehran | Since 2023
+                                        <h3 class="text-xl font-bold text-animate">Bachelor of Science in Computer
+                                                Science</h3>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Amirkabir
+                                                        University of Technology</span>, Tehran | Since 2023
                                         </p>
-                                        <p>GPA: 18.97 / 20.0</p>
+                                        <p class="text-animate">GPA: 18.97 / 20.0</p>
                                 </div>
                                 <div class="timeline-item relative mb-6 slide-in-left">
-                                        <h3 class="text-xl font-bold">High School Diploma in Mathematics</h3>
-                                        <p class="text-gray-600"><span style="color: #9f5a0b;">Allameh Helli
-                                                        (Sampad)</span>, Tehran | 2020 - 2023</p>
-                                        <p>GPA: 18.87 / 20.0</p>
+                                        <h3 class="text-xl font-bold text-animate">High School Diploma in Mathematics
+                                        </h3>
+                                        <p class="text-gray-600 text-animate"><span style="color: #9f5a0b;">Allameh
+                                                        Helli (Sampad)</span>, Tehran | 2020 - 2023</p>
+                                        <p class="text-animate">GPA: 18.87 / 20.0</p>
                                 </div>
                         </div>
                 </section>
@@ -413,10 +518,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-left"
                                         style="--animation-order: 1;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">News Text
-                                                Classification</h3>
-                                        <p class="text-gray-600">Mar 2024 - Sep 2024</p>
-                                        <p>This project implements a machine learning-based news text classification
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">News
+                                                Text Classification</h3>
+                                        <p class="text-gray-600 text-animate">Mar 2024 - Sep 2024</p>
+                                        <p class="text-animate">This project implements a machine learning-based news
+                                                text classification
                                                 system. The goal is to classify news articles into predefined categories
                                                 (such as
                                                 sports, politics, business, etc.) based on their content. The project
@@ -427,17 +533,18 @@
                                                 implementation is done using Python and Jupyter notebooks, making it
                                                 easy for
                                                 users to understand the logic and interact with the code.</p>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://github.com/MohammadrezaSheikholeslami84/News-Text-Classification"
                                                         class="text-indigo-600 hover:underline">View
                                                         Project</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 2;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">House Price
-                                                Predictor</h3>
-                                        <p class="text-gray-600">Nov 2024 - Mar 2025</p>
-                                        <p>This project predicts house prices based on various features such as area,
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">House
+                                                Price Predictor</h3>
+                                        <p class="text-gray-600 text-animate">Nov 2024 - Mar 2025</p>
+                                        <p class="text-animate">This project predicts house prices based on various
+                                                features such as area,
                                                 number of bedrooms, location, and other characteristics. The project
                                                 uses
                                                 machine learning models to train on historical housing data from the
@@ -445,17 +552,18 @@
                                                 and makes predictions for new properties. The goal of this project is to
                                                 provide
                                                 a model that can estimate house prices based on given features.</p>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://github.com/MohammadrezaSheikholeslami84/House-Price-Predictor"
                                                         class="text-indigo-600 hover:underline">View
                                                         Project</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-left"
                                         style="--animation-order: 3;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Portfolio
-                                                Management</h3>
-                                        <p class="text-gray-600">Jan 2024 - Feb 2024</p>
-                                        <p>Designed to help individuals and institutions effectively manage their
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">
+                                                Portfolio Management</h3>
+                                        <p class="text-gray-600 text-animate">Jan 2024 - Feb 2024</p>
+                                        <p class="text-animate">Designed to help individuals and institutions
+                                                effectively manage their
                                                 investment portfolios. The system allows users to track and analyze
                                                 their
                                                 assets, evaluate portfolio performance, and make data-driven decisions
@@ -465,17 +573,18 @@
                                                 visualization, the system allows users to understand the performance of
                                                 their
                                                 investments and assess the risks associated with their assets.</p>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://github.com/MohammadrezaSheikholeslami84/Portfolio-Management"
                                                         class="text-indigo-600 hover:underline">View
                                                         Project</a></p>
                                 </div>
                                 <div class="bg-white p-4 rounded-lg shadow box slide-in-right"
                                         style="--animation-order: 4;">
-                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold">Java Store</h3>
-                                        <p class="text-gray-600">Mar 2023</p>
-                                        <p>This project is an online store project similar to websites like amazon.com
-                                                and
+                                        <h3 style="color:rgb(42, 1, 243);" class="text-lg font-bold text-animate">Java
+                                                Store</h3>
+                                        <p class="text-gray-600 text-animate">Mar 2023</p>
+                                        <p class="text-animate">This project is an online store project similar to
+                                                websites like amazon.com and
                                                 other online stores and applications. This program is written in Java
                                                 and
                                                 includes a graphical user interface (GUI) and a MySQL database, and has
@@ -483,7 +592,7 @@
                                                 project
                                                 uses the importance of object-oriented programming (OOP) and also
                                                 knowledge of principles such as SOLID principles.</p>
-                                        <p class="mt-2"><a
+                                        <p class="mt-2 text-animate"><a
                                                         href="https://github.com/MohammadrezaSheikholeslami84/Jave-Store-GUI"
                                                         class="text-indigo-600 hover:underline">View
                                                         Project</a></p>
@@ -496,9 +605,10 @@
                         <h2 class="text-2xl font-semibold mb-4 section-header">Awards and Honors</h2>
                         <div class="relative pl-8">
                                 <div class="timeline-item relative mb-6 slide-in-left">
-                                        <h3 class="text-xl font-bold">ATC II (Algorithmic Trading Challenge)</h3>
-                                        <p class="text-gray-600">I won 7th place in the “ATC II Algorithmic Trading”
-                                                competition organized by the
+                                        <h3 class="text-xl font-bold text-animate">ATC II (Algorithmic Trading
+                                                Challenge)</h3>
+                                        <p class="text-gray-600 text-animate">I won 7th place in the “ATC II Algorithmic
+                                                Trading” competition organized by the
                                                 Computer Science Department of Amirkabir University of Technology. The
                                                 competition focused on developing algorithmic trading strategies using
                                                 historical market data.</p>
@@ -510,7 +620,7 @@
         <!-- Footer -->
         <footer class="bg-indigo-600 text-white py-4">
                 <div class="container mx-auto px-4 text-center">
-                        <p>© 2025 Mohammadreza Sheikholeslami. All rights reserved.</p>
+                        <p class="text-animate">© 2025 Mohammadreza Sheikholeslami. All rights reserved.</p>
                 </div>
         </footer>
 
@@ -538,16 +648,16 @@
                         threshold: 0.1 // Trigger when 10% of the element is visible
                 });
 
-                // Observe sections and items
-                document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
+                // Observe sections and text elements
+                document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .text-animate').forEach(element => {
                         observer.observe(element);
                 });
 
                 // Fallback to show elements after 2 seconds if IntersectionObserver fails
                 setTimeout(() => {
-                        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
+                        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .text-animate').forEach(element => {
                                 if (!element.classList.contains('visible')) {
-                                        element.classList.add('visible');
+                                        element.target.classList.add('visible');
                                 }
                         });
                 }, 2000);
