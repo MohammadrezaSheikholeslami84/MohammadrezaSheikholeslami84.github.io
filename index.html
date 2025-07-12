@@ -4,1176 +4,903 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammadreza Sheikholeslami - Resume</title>
+    <title>Mohammadreza Sheikholeslami - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* Custom styles with new fonts and refined palette */
         :root {
-            --primary-blue: #1a5e95;
-            /* Darker, sophisticated blue */
-            --light-blue: #e0f7fa;
-            /* Original very light blue, kept */
-            --purple-accent: #f3e8ff;
-            /* Original light purple, kept */
-            --text-dark: #334155;
-            /* Darker grey for main text */
-            --text-light: #64748b;
-            /* Lighter grey for secondary text */
-            --section-bg-blue: #dbeafe;
-            /* Lighter shade of primary blue */
-            --section-bg-green: #e0f7fa;
-            /* Lightest blue for subtle variation */
-            --section-bg-purple: #ede9fe;
-            /* Softer purple */
-            --section-bg-yellow: #fff7ed;
-            /* Very light orange/yellow */
-            --section-bg-teal: #d1fae5;
-            /* Soft teal */
-            --section-bg-orange: #ffead0;
-            /* Soft orange */
-            --section-bg-pink: #fce7f3;
-            /* Soft pink */
+            --primary-blue: #3b82f6;
+            --text-light: #e2e8f0;
+            --text-dark: #94a3b8;
+            --navbar-bg: rgba(15, 23, 42, 0.8);
+            --section-bg: rgba(15, 23, 42, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --border-color: rgba(59, 130, 246, 0.2);
+            --hover-border-color: rgba(59, 130, 246, 0.5);
+            --hover-lift: translateY(-6px);
+            --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
 
-            /* New Navbar Item Colors */
-            --navbar-item-color: #f0f9ff;
-            /* Very light blue/off-white */
-            --navbar-item-hover-color: #93c5fd;
-            /* A brighter, more engaging blue */
-            --navbar-item-active-color: #60a5fa;
-            /* A slightly darker active blue */
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         body {
-            background: linear-gradient(to bottom, var(--light-blue), var(--purple-accent));
+            background-color: #0f172a;
             font-family: 'Open Sans', sans-serif;
-            /* New: Open Sans for body */
-            color: var(--text-dark);
-            scroll-behavior: smooth;
-            /* Ensures smooth scrolling on link clicks */
+            color: var(--text-light);
         }
 
-        /* Responsive Navbar */
-        .navbar-nav {
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        #home {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            padding: 1rem;
         }
 
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                align-items: flex-start;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-blue);
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-                transform: translateY(-100%);
-                opacity: 0;
-                pointer-events: none;
-                transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            }
+        .hero-content h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
 
-            .navbar-nav.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: auto;
-            }
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-            .navbar-nav li {
-                margin-bottom: 0.75rem;
-                width: 100%;
-            }
+        .hero-button {
+            margin-top: 2.5rem;
+            padding: 0.8rem 2.5rem;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
 
-            .navbar-nav li:last-child {
-                margin-bottom: 0;
-            }
+        .hero-button:hover {
+            background-color: #60a5fa;
+            transform: scale(1.05);
+        }
+
+        nav {
+            background-color: var(--navbar-bg) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar-nav a {
+            color: var(--text-light);
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        .navbar-nav a:hover::after,
+        .navbar-nav a.active-link::after {
+            width: 100%;
+        }
+        .navbar-nav a.active-link {
+            color: white;
+        }
+        
+        section:not(#home) {
+            background-color: var(--section-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
         }
 
         .section-header {
+            color: white;
             border-bottom: 3px solid var(--primary-blue);
-            /* Thicker, more prominent line */
-            display: inline-block;
-            padding-bottom: 0.5rem;
-            /* Space between text and line */
-            overflow: hidden;
-            white-space: nowrap;
-            opacity: 0;
             font-family: 'Inter', sans-serif;
-            /* New: Inter for headings */
             font-weight: 700;
-            color: var(--primary-blue);
-            /* Consistent primary blue */
-            animation: fadeIn 1s ease-out forwards;
-            position: relative;
-            /* For the pseudo-element glow */
+            padding-bottom: 0.5rem;
+            display: inline-flex;
+            align-items: center;
         }
-
-        /* Subtle glow effect on section headers */
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-blue), #6dd5ed, var(--primary-blue));
-            opacity: 0;
-            animation: headerGlow 2s infinite alternate ease-in-out;
-            animation-delay: 1s;
-            /* Start after fade-in */
-        }
-
-        @keyframes headerGlow {
-            from {
-                opacity: 0.3;
-                transform: scaleX(0.8);
-            }
-
-            to {
-                opacity: 0.8;
-                transform: scaleX(1);
-            }
-        }
-
 
         .timeline-item {
             position: relative;
-            padding-left: 25px;
-            /* Space for the circle */
-            margin-bottom: 2rem;
+            padding-left: 30px;
+            padding-bottom: 2rem;
         }
-
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
         .timeline-item::before {
             content: '';
             position: absolute;
             left: 0;
-            /* Position the circle at the left edge of padding */
             top: 5px;
-            /* Adjust vertical alignment */
-            width: 12px;
-            /* Larger circle */
-            height: 12px;
-            /* Larger circle */
+            width: 15px;
+            height: 15px;
             background-color: var(--primary-blue);
             border-radius: 50%;
-            border: 2px solid white;
-            /* White border for contrast */
-            box-shadow: 0 0 0 3px var(--primary-blue);
-            /* Outer glow/ring */
-            z-index: 10;
+            border: 3px solid #0f172a;
+            z-index: 1;
         }
-
         .timeline-item::after {
             content: '';
             position: absolute;
-            left: 5px;
-            /* Center the line */
-            top: 18px;
-            /* Start below the circle */
-            bottom: -1rem;
-            /* Extend beyond the item */
-            width: 2px;
-            background-color: #cbd5e1;
-            /* Light grey timeline line */
-            z-index: 5;
+            left: 6px;
+            top: 20px;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--border-color);
         }
-
         .timeline-item:last-child::after {
             display: none;
-            /* Hide line for the last item */
+        }
+        
+        h3, .text-gray-800 {
+            color: white !important;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            /* Longer, smoother transition */
+        p, ul, li, .text-gray-700, .text-lg {
+             color: var(--text-dark) !important;
+             line-height: 1.7;
+        }
+        ul {
+            list-style-position: outside;
+            margin-left: 1rem;
+        }
+        
+        #skills .card ul,
+        #certifications .card ul,
+        #projects .card p {
+            font-size: 1rem;
+        }
+        #certifications .card ul, #projects .card ul {
+             list-style-type: disc;
+             padding-left: 1rem;
         }
 
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scale-in {
-            opacity: 0;
-            transform: scale(0.98);
-            /* Less aggressive scale */
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-            transition-delay: calc(var(--animation-order) * 0.1s);
-            /* Staggered animation */
-        }
-
-        .scale-in.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
 
         .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             border-radius: 0.75rem;
-            /* More rounded corners */
-            overflow: hidden;
-            /* Ensure content stays within rounded corners */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            /* Softer initial shadow */
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            /* More pronounced lift */
-            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.25);
-            /* Stronger hover shadow */
-            background-color: var(--section-bg-blue);
-            /* Subtle background change on hover */
+            transform: var(--hover-lift);
+            box-shadow: var(--hover-shadow);
+            border-color: var(--hover-border-color);
         }
 
-        .skill-button {
-            opacity: 0;
-            transform: translateY(10px);
-            /* Small lift effect */
-            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        .card h3 {
+            color: var(--primary-blue) !important;
+        }
+        
+        .skill-tag {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #93c5fd;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
-        .skill-button.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: calc(var(--animation-order-skill) * 0.05s + 0.3s);
-            /* Staggered within card */
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .profile-img {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-            /* Slower, gentler fade */
-            border-radius: 50%;
-            border: 4px solid var(--primary-blue);
-            /* Thicker, bolder border */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            /* More pronounced shadow */
+        .form-input {
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .profile-img.visible {
-            opacity: 1;
-            transform: scale(1);
+        .form-input::placeholder {
+            color: var(--text-dark);
         }
 
-        /* Navigation buttons */
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-button {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #60a5fa;
+            transform: scale(1.02);
+        }
+        .submit-button:disabled {
+            background-color: #374151;
+            cursor: not-allowed;
+        }
+
+        #form-status {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        
         .nav-buttons {
             position: fixed;
             right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            z-index: 50;
-            /* Higher z-index */
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
-
+        .nav-buttons.visible {
+            opacity: 1;
+        }
         .nav-button {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 12px;
-            /* Larger buttons */
-            border-radius: 50%;
-            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            /* Center icon */
-            align-items: center;
-            justify-content: center;
-            font-family: 'Open Sans', sans-serif;
+             background-color: var(--navbar-bg);
+             backdrop-filter: blur(5px);
+             color: white;
+             width: 44px;
+             height: 44px;
+             border-radius: 50%;
+             border: 1px solid var(--border-color);
+             transition: all 0.3s ease;
+             display: flex;
+             align-items: center;
+             justify-content: center;
         }
-
         .nav-button:hover {
-            transform: scale(1.15);
-            /* More prominent scale */
-            background-color: #3b82f6;
-            /* Lighter blue on hover */
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background-color: var(--primary-blue);
+            transform: scale(1.1);
         }
 
-        /* Responsive adjustments */
+
         @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
             .nav-buttons {
-                right: 10px;
                 flex-direction: row;
                 bottom: 15px;
-                /* Move to bottom */
-                top: auto;
-                transform: translateY(0);
-                gap: 8px;
+                left: 50%;
+                transform: translateX(-50%);
+                gap: 1rem;
+                padding: 0.5rem 1rem;
+                border-radius: 9999px;
             }
-
-            .nav-button {
-                padding: 10px;
+            section:not(#home) {
+                padding: 1.5rem;
             }
-
-            /* Adjust About Me section for mobile */
-            #about .flex-col.md\:flex-row {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            #about img {
-                width: 10rem;
-                /* Smaller image on mobile */
-                height: 10rem;
-                margin: 0 auto 1rem;
-                /* Center and add margin */
-            }
-
-            .section-header {
-                font-size: 1.75rem;
-                /* Slightly smaller on mobile */
-                text-align: center;
-                /* Center header */
-                display: block;
-                /* Make it block to center */
-                margin-bottom: 1.5rem;
-            }
-
-            .timeline-item {
-                padding-left: 20px;
-                /* Reduce padding for timeline */
-            }
-
-            .timeline-item::before {
-                left: -2px;
-                /* Adjust circle position */
-            }
-
-            .timeline-item::after {
-                left: 3px;
-                /* Adjust line position */
-            }
-
             .grid {
-                grid-template-columns: 1fr;
-                /* Single column for grids */
+                grid-template-columns: 1fr !important;
             }
         }
 
-        /* Section-specific backgrounds - slightly less opaque, more subtle */
-        #about {
-            background-color: var(--section-bg-blue);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
+        .stagger-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .stagger-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        #skills {
-            background-color: var(--section-bg-green);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
+        .animate-subtitle, .animate-button {
+            opacity: 0;
+        }
+        .animate-subtitle.visible {
+            animation: fadeInUp 0.8s 0.6s ease-out forwards;
+        }
+        .animate-button.visible {
+            animation: zoomIn 0.8s 1.0s ease-out forwards;
         }
 
-        #experience {
-            background-color: var(--section-bg-purple);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
-        }
-
-        #certifications {
-            background-color: var(--section-bg-yellow);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
-        }
-
-        #education {
-            background-color: var(--section-bg-teal);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
-        }
-
-        #projects {
-            background-color: var(--section-bg-orange);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
-        }
-
-        #awards {
-            background-color: var(--section-bg-pink);
-            padding: 2.5rem;
-            border-radius: 1.25rem;
-        }
-
-
-        /* Keyframes */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Social icon hover effect */
-        .social-icon {
-            transition: transform 0.2s ease, color 0.2s ease;
-            color: var(--navbar-item-color);
-            /* Use new variable for social icons in nav */
-        }
-
-        .social-icon:hover {
-            transform: scale(1.25);
-            /* More pronounced scale */
-            color: var(--navbar-item-hover-color);
-            /* Use new variable for social icons on hover */
-        }
-
-        /* Adjust font sizes and weights */
-        h1,
-        h2,
-        h3 {
-            font-family: 'Inter', sans-serif;
-            /* New: Inter for headings */
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            /* Larger, more impactful */
-            font-weight: 700;
-            letter-spacing: -0.05em;
-            /* Slightly tighter spacing */
-        }
-
-        h2 {
-            font-size: 2rem;
-            /* Larger */
-            font-weight: 700;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            /* Larger */
-            font-weight: 700;
-        }
-
-        p,
-        ul,
-        li {
-            font-size: 1.05rem;
-            /* Slightly larger text for readability */
-            font-weight: 400;
-            line-height: 1.6;
-            /* Better line spacing */
-            color: var(--text-dark);
-            /* Ensure text color consistency */
-        }
-
-        .text-gray-600 {
-            color: var(--text-light);
-        }
-
-        /* Specific secondary text */
-        .text-gray-700 {
-            color: var(--text-dark);
-        }
-
-        /* Main text */
-        .text-gray-800 {
-            color: var(--text-dark);
-        }
-
-        /* Headings within cards */
-
-
-        /* Specific text colors within certifications/projects for links/titles */
-        .card h3 {
+        .name-highlight {
             color: var(--primary-blue);
-            /* Make card titles stand out */
+        }
+        
+        @keyframes typing {
+          from { width: 0 }
+          to { width: 100% }
         }
 
-        .card p>span {
-            color: #9f5a0b;
-            /* Original brown color for institution */
+        @keyframes blink-caret {
+          from, to { border-color: transparent }
+          50% { border-color: var(--primary-blue); }
         }
 
-        /* Navbar item colors */
-        .navbar-nav a {
-            color: var(--navbar-item-color);
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav a:hover {
-            color: var(--navbar-item-hover-color);
-        }
-
-        .navbar-nav a.active-link {
-            color: var(--navbar-item-active-color);
-            font-weight: bold;
+        .typing-effect {
+          display: inline-block;
+          overflow: hidden;
+          white-space: nowrap;
+          border-right: .15em solid var(--primary-blue);
+          vertical-align: bottom;
+          animation:
+            typing 2s steps(30, end) 1.5s forwards,
+            blink-caret .75s step-end infinite 1.5s;
+          width: 0;
         }
     </style>
 </head>
 
-<body class="font-sans text-gray-800">
-    <nav style="background-color: var(--primary-blue);" class="text-white fixed w-full top-0 shadow-xl z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
-            <h1 class="text-2xl font-bold md:text-3xl text-white">Mohammadreza Sheikholeslami</h1>
-            <div class="md:hidden">
-                <button id="menu-toggle" class="text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-            <div id="navbar-links" class="hidden md:flex flex-grow md:justify-end items-center space-x-6 navbar-nav">
-                <ul class="flex flex-col md:flex-row md:space-x-8 space-y-3 md:space-y-0 text-lg">
-                    <li><a href="#about" class="active-link">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#awards">Awards</a></li>
-                </ul>
-                <div class="flex space-x-4 md:space-x-6 mt-4 md:mt-0">
-                    <a href="mailto:mr.sheikholeslami84@gmail.com" aria-label="Email" class="social-icon">
-                        <i class="fas fa-envelope text-xl md:text-2xl"></i>
-                    </a>
-                    <a href="https://github.com/MohammadrezaSheikholeslami84" target="_blank"
-                        aria-label="GitHub Profile" class="social-icon">
-                        <i class="fab fa-github text-xl md:text-2xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/mohammadrezasheikholeslami/" target="_blank"
-                        aria-label="LinkedIn Profile" class="social-icon">
-                        <i class="fab fa-linkedin text-xl md:text-2xl"></i>
-                    </a>
+<body>
+    <div id="vanta-bg"></div>
+
+    <div class="content-wrapper">
+        <nav class="text-white fixed w-full top-0 shadow-xl z-50">
+            <div class="container mx-auto px-6 py-3 flex justify-between items-center relative">
+                <a href="#home" class="text-xl font-bold md:text-2xl text-white">Mohammadreza Sheikholeslami</a>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                <div id="navbar-links" class="hidden md:flex flex-grow md:justify-end items-center space-x-6 navbar-nav">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 space-y-3 md:space-y-0 text-base">
+                        <li><a href="#home" class="active-link">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#certifications">Certifications</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#awards">Awards</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <div class="flex space-x-4 md:space-x-5 mt-4 md:mt-0">
+                        <a href="mailto:mr.sheikholeslami84@gmail.com" aria-label="Email" class="social-icon">
+                            <i class="fas fa-envelope text-lg md:text-xl"></i>
+                        </a>
+                        <a href="https://github.com/MohammadrezaSheikholeslami84" target="_blank" aria-label="GitHub Profile" class="social-icon">
+                            <i class="fab fa-github text-lg md:text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/mohammadrezasheikholeslami/" target="_blank" aria-label="LinkedIn Profile" class="social-icon">
+                            <i class="fab fa-linkedin text-lg md:text-xl"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+        </nav>
+
+        <section id="home">
+            <div class="hero-content">
+                <h1 class="animate-title"></h1>
+                <p class="animate-subtitle">A passionate Computer Science student building innovative solutions with a focus on Machine Learning and Data Science.</p>
+                <a href="#about" class="hero-button animate-button">Learn More About Me</a>
+            </div>
+        </section>
+
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top">
+                <i class="fas fa-arrow-up text-white"></i>
+            </button>
+            <button class="nav-button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" aria-label="Scroll to bottom">
+                <i class="fas fa-arrow-down text-white"></i>
+            </button>
         </div>
-    </nav>
 
-    <div class="nav-buttons">
-        <button class="nav-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top">
-            <i class="fas fa-arrow-up text-white"></i>
-        </button>
-        <button class="nav-button" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"
-            aria-label="Scroll to bottom">
-            <i class="fas fa-arrow-down text-white"></i>
-        </button>
-    </div>
+        <div class="container mx-auto px-6 py-12">
+            <section id="about" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-user-circle mr-3"></i>About Me</h2>
+                <div class="flex flex-col md:flex-row items-center mb-6 gap-8">
+                    <img src="https://avatars.githubusercontent.com/u/166950228?v=4" alt="Mohammadreza Sheikholeslami Profile" loading="lazy" class="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-primary-blue shadow-xl profile-img object-cover">
+                    <p class="text-lg leading-relaxed max-w-2xl">
+                        A dedicated Computer Science student at <span class="font-semibold" style="color: #9f5a0b;">Amirkabir University of Technology</span>, specializing in machine learning, SQL, and data analysis. I possess strong proficiency in Python, with practical experience leveraging <span class="font-medium text-blue-400">NumPy</span>, <span class="font-medium text-blue-400">Pandas</span>, and <span class="font-medium text-blue-400">Matplotlib</span> for efficient data processing and impactful visualizations. My background also includes developing robust Java-based applications using <span class="font-medium text-blue-400">JavaFX</span> and <span class="font-medium text-blue-400">MySQL</span>, complemented by a solid understanding of <span class="font-medium text-blue-400">Git</span> for seamless version control. With a deep grasp of deep learning and natural language processing, I am keenly interested in applying AI to solve complex real-world challenges. Additionally, I have experience in developing trading bots with <span class="font-medium text-blue-400">MQL4</span> and using <span class="font-medium text-blue-400">Pine Script</span> for insightful financial market analysis.
+                        <a href="https://quera.org/qcv/assessment_report/8dvlbzo" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline font-semibold transition duration-300">(Quera assessment report)</a>
+                    </p>
+                </div>
+            </section>
 
-    <div class="container mx-auto px-6 py-24 mt-16">
-        <section id="about" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">About Me</h2>
-            <div class="flex flex-col md:flex-row items-center mb-6 gap-8">
-                <img src="https://avatars.githubusercontent.com/u/166950228?v=4"
-                    alt="Mohammadreza Sheikholeslami Profile" loading="lazy"
-                    class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-primary-blue shadow-xl profile-img object-cover">
-                <p class="text-lg text-gray-700 leading-relaxed max-w-2xl">
-                    A dedicated Computer Science student at <span class="font-semibold"
-                        style="color: #9f5a0b;">Amirkabir
-                        University of Technology</span>,
-                    specializing in machine learning, SQL, and data analysis. I possess strong proficiency in Python,
-                    with
-                    practical experience leveraging <span class="font-medium text-blue-700">NumPy</span>, <span
-                        class="font-medium text-blue-700">Pandas</span>, and <span
-                        class="font-medium text-blue-700">Matplotlib</span>
-                    for efficient data processing and impactful visualizations. My background also includes developing
-                    robust
-                    Java-based applications using <span class="font-medium text-blue-700">JavaFX</span> and <span
-                        class="font-medium text-blue-700">MySQL</span>, complemented by
-                    a solid understanding of <span class="font-medium text-blue-700">Git</span> for seamless version
-                    control. With a deep
-                    grasp of deep learning and natural language processing, I am keenly interested in applying AI to
-                    solve
-                    complex real-world challenges. Additionally, I have experience in developing trading bots with <span
-                        class="font-medium text-blue-700">MQL4</span>
-                    and using <span class="font-medium text-blue-700">Pine Script</span> for insightful financial market
-                    analysis.
-                    <a href="https://quera.org/qcv/assessment_report/8dvlbzo" target="_blank"
-                        class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">(Quera
-                        assessment report)</a>
+            <section id="experience" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-briefcase mr-3"></i>Work Experience</h2>
+                <div class="relative">
+                    <div class="timeline-item">
+                        <h3 class="text-2xl font-bold">Teaching Assistant: Advanced Programming</h3>
+                        <p class="text-lg mb-2"><span style="color: #9f5a0b;" class="font-medium">Amirkabir University of Technology</span>, Tehran | 2025</p>
+                        <p class="text-lg mb-3">Instructor: Prof. Mahdi Ghatee</p>
+                        <ul class="list-disc space-y-1.5">
+                            <li><b>Programming Languages:</b> Java</li>
+                            <li><b>Concepts:</b> Object-Oriented Programming (OOP), Data Structures, Algorithms</li>
+                            <li><b>Tools & Platforms:</b> Git, GitHub</li>
+                            <li><b>Databases:</b> MySQL</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="education" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-graduation-cap mr-3"></i>Education</h2>
+                <div class="relative">
+                    <div class="timeline-item">
+                        <h3 class="text-2xl font-bold">Bachelor of Science in Computer Science</h3>
+                        <p class="text-lg mb-2"><span style="color: #9f5a0b;" class="font-medium">Amirkabir University of Technology</span>, Tehran | Since 2023</p>
+                        <p class="text-lg">GPA: 18.97 / 20.0</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-2xl font-bold">High School Diploma in Mathematics</h3>
+                        <p class="text-lg mb-2"><span style="color: #9f5a0b;" class="font-medium">Allameh Helli (Sampad)</span>, Tehran | 2020 - 2023</p>
+                        <p class="text-lg">GPA: 18.87 / 20.0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-code mr-3"></i>Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card p-6 stagger-in">
+                        <h3 class="text-xl font-bold mb-3"><i class="fas fa-laptop-code mr-2"></i>Programming Languages</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fab fa-python w-6 text-center mr-2 text-lg" style="color: #3776AB;"></i><span>Python</span></li>
+                            <li class="flex items-center"><i class="fab fa-java w-6 text-center mr-2 text-lg" style="color: #f89820;"></i><span>Java</span></li>
+                            <li class="flex items-center"><i class="fas fa-copyright w-6 text-center mr-2 text-lg"></i><span>C</span></li>
+                            <li class="flex items-center"><i class="fas fa-dollar-sign w-6 text-center mr-2 text-lg"></i><span>MQL4</span></li>
+                            <li class="flex items-center"><i class="fas fa-chart-line w-6 text-center mr-2 text-lg"></i><span>PineScript</span></li>
+                        </ul>
+                    </div>
+                    <div class="card p-6 stagger-in">
+                        <h3 class="text-xl font-bold mb-3"><i class="fas fa-brain mr-2"></i>AI & Data Science</h3>
+                        <ul class="list-disc space-y-1"><li>Machine Learning</li><li>Deep Learning</li><li>Natural Language Processing (NLP)</li><li>Data Preprocessing & EDA</li><li>Data Visualization</li></ul>
+                    </div>
+                    <div class="card p-6 stagger-in">
+                        <h3 class="text-xl font-bold mb-3"><i class="fas fa-cogs mr-2"></i>Frameworks & Libraries</h3>
+                         <ul class="list-disc space-y-1"><li>Scikit-Learn</li><li>TensorFlow</li><li>Pandas & NumPy</li><li>Matplotlib & Seaborn</li><li>NLTK & SpaCy</li><li>yfinance</li></ul>
+                    </div>
+                    <div class="card p-6 stagger-in">
+                         <h3 class="text-xl font-bold mb-3"><i class="fas fa-database mr-2"></i>Databases</h3>
+                         <ul class="list-disc space-y-1"><li>MySQL</li><li>SQL Server</li><li>PostgreSQL</li></ul>
+                    </div>
+                    <div class="card p-6 stagger-in">
+                        <h3 class="text-xl font-bold mb-3"><i class="fas fa-tools mr-2"></i>Tools & Version Control</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fab fa-git-alt w-6 text-center mr-2 text-lg" style="color: #F05033;"></i><span>Git</span></li>
+                            <li class="flex items-center"><i class="fab fa-github w-6 text-center mr-2 text-lg"></i><span>GitHub</span></li>
+                            <li class="flex items-center"><i class="fab fa-docker w-6 text-center mr-2 text-lg" style="color: #2496ED;"></i><span>Docker</span></li>
+                        </ul>
+                    </div>
+                     <div class="card p-6 stagger-in">
+                        <h3 class="text-xl font-bold mb-3"><i class="fas fa-globe mr-2"></i>Languages</h3>
+                        <ul class="list-disc space-y-1"><li>English (Fluent)</li><li>Persian (Native)</li></ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="certifications" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-certificate mr-3"></i>Certifications</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Machine Learning Specialization</h3>
+                        <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">Stanford University</span> | Oct 2024 - Mar 2025</p>
+                        <ul class="list-disc space-y-2 flex-grow">
+                            <li>Built robust ML models using NumPy and scikit-learn for prediction and binary classification (linear, logistic regression).</li>
+                            <li>Developed and trained neural networks with TensorFlow for multiclass classification, incorporating decision trees and ensemble methods.</li>
+                            <li>Applied ML best practices and utilized unsupervised learning techniques (clustering, anomaly detection).</li>
+                            <li>Constructed recommender systems via collaborative filtering and content-based deep learning, along with a deep reinforcement learning model.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-tag">Machine Learning</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Keras</span><span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://www.coursera.org/account/accomplishments/specialization/FXCWB3DC2QBN" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Professional Project-Oriented Course in ML With Python</h3>
+                        <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span> | Aug 2024 - Dec 2024</p>
+                        <ul class="list-disc space-y-2 flex-grow">
+                            <li>Mastered project management tips for ML workflows.</li>
+                            <li>Executed data preparation and feature engineering.</li>
+                            <li>Implemented various regression and classification techniques.</li>
+                            <li>Conducted model evaluation, selection, and regularization.</li>
+                            <li>Developed Artificial Neural Networks and gained an introduction to Natural Language Processing.</li>
+                            <li>Applied unsupervised learning and clustering methods.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                           <span class="skill-tag">Machine Learning</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">Data Science</span><span class="skill-tag">NLP</span><span class="skill-tag">Feature Engineering</span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://quera.org/certificate/2RImf2z8/" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Task-Oriented Course in Data Analysis With Python</h3>
+                        <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span> | Jul 2024 - Nov 2024</p>
+                        <ul class="list-disc space-y-2 flex-grow">
+                            <li>Proficient in data cleaning and preparation techniques.</li>
+                            <li>Skilled in data analysis and interpretation of results.</li>
+                            <li>Adept at creating compelling data visualizations.</li>
+                            <li>Extensive experience with NumPy, Pandas, Matplotlib, and Seaborn libraries.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-tag">Data Analysis</span><span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://quera.org/certificate/tMdKNSbd/" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                                        <div class="card p-6 flex flex-col stagger-in">
+                                                <h3 class="text-xl font-bold mb-2">Professional Project-Oriented Course
+                                                in Natural Language Processing</h3>
+                                                <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span> | Jul 2025</p>
+                                                <ul class="list-disc space-y-2 flex-grow">
+                                                        <li>Basic Text Processing in Python and Text Preprocessing with NLTK</li>
+                                                        <li>Working with Regular Expressions (Regex)</li>
+                                                        <li>Introduction to the Text Processing Pipeline in spaCy</li>
+                                                        <li>Advanced Tokenization (spaCy, Subword, Byte-Pair)</li>
+                                                        <li>Statistical Text Representation (One-hot, Bag of Words, Tf-Idf)</li>
+                                                        <li>Text Classification with Machine Learning</li>
+                                                        <li>The Concept of Language Model and the N-gram Method</li>
+                                                        <li>Word Embedding and Introduction to Gensim</li>
+
+                                                </ul>
+                                                <div class="flex flex-wrap gap-2 mt-4">
+                                                        <span class="skill-tag">NLP</span><span class="skill-tag">SpaCy</span><span
+                                                                class="skill-tag">Regex</span><span class="skill-tag">Python</span><span
+                                                                class="skill-tag">Seaborn</span>
+                                                </div>
+                                                <div class="mt-4">
+                                                        <a href="https://quera.org/certificate/3NJ7M3tK/" target="_blank"
+                                                                class="font-semibold text-blue-400 hover:text-blue-300">View
+                                                                Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                                                </div>
+                        </div>
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Databases and SQL for Data Science</h3>
+                        <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">IBM</span> | Nov 2024 - Jan 2025</p>
+                        <ul class="list-disc space-y-2 flex-grow">
+                            <li>Mastered creating, deleting, and modifying databases and tables.</li>
+                            <li>Proficient in retrieving, deleting, and modifying data.</li>
+                            <li>Skilled in filtering and grouping data for analytical purposes.</li>
+                            <li>Adept at joining tables and optimizing data processing.</li>
+                            <li>Utilized built-in functions for data manipulation and explored advanced concepts like views and stored procedures.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                           <span class="skill-tag">Data Analysis</span><span class="skill-tag">Data Science</span><span class="skill-tag">Databases</span><span class="skill-tag">SQL</span><span class="skill-tag">Python</span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://www.credly.com/badges/a8906202-402d-4c72-833b-006bb99406bf/linked_in_profile" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                     <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Task-Oriented Course in Version Control With Git</h3>
+                        <p class="text-sm mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span> | Jan 2025</p>
+                        <ul class="list-disc space-y-2 flex-grow">
+                            <li>Proficient in installing and running Git.</li>
+                            <li>Mastered basic Git commands (pull, push, commit).</li>
+                            <li>Skilled in working with branches, merge, and rebase operations.</li>
+                            <li>Adept at diagnosing and correcting repository errors.</li>
+                            <li>Experienced with supplementary commands (stash, cherry-pick) and platforms like GitHub and GitLab.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                           <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span>
+                        </div>
+                        <div class="mt-4">
+                            <a href="https://quera.org/media/public/certificate/d93b4054a1a64c7d83a385e63c8bc194.png" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Credential <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="stagger-in">
+                <h2 class="text-3xl font-bold mb-6 section-header"><i class="fas fa-lightbulb mr-3"></i>Personal Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">News Text Classification</h3>
+                        <p class="mb-4 flex-grow">This project implements a machine learning-based news text classification system. The goal is to categorize news articles into predefined categories (e.g., sports, politics, business) using their content. The project leverages various natural language processing (NLP) techniques for text preprocessing and machine learning models for accurate classification. Implemented in Python and Jupyter notebooks, it offers a clear and interactive demonstration of the underlying logic.</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-tag">Machine Learning</span><span class="skill-tag">NLP</span><span class="skill-tag">Data Science</span><span class="skill-tag">Python</span><span class="skill-tag">Scikit-Learn</span>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <a href="https://github.com/MohammadrezaSheikholeslami84/News-Text-Classification" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Project <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                     <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">House Price Predictor</h3>
+                        <p class="mb-4 flex-grow">This project focuses on predicting house prices using various features like area, number of bedrooms, and location. It utilizes machine learning models trained on historical housing data from Kaggle to generate accurate predictions for new properties. The primary goal is to provide a reliable model for estimating real estate values based on given property characteristics.</p>
+                         <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-tag">Data Analysis</span><span class="skill-tag">Data Science</span><span class="skill-tag">Machine Learning</span><span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
+                        </div>
+                         <div class="mt-auto pt-4">
+                            <a href="https://github.com/MohammadrezaSheikholeslami84/House-Price-Predictor" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Project <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                    <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Portfolio Management System</h3>
+                        <p class="mb-4 flex-grow">Designed to assist individuals and institutions in effectively managing their investment portfolios. The system enables users to track and analyze assets, evaluate portfolio performance, and make data-driven investment decisions. With a focus on data analysis, risk management, and visualization, the system helps users understand investment performance and assess associated risks.</p>
+                         <div class="flex flex-wrap gap-2 mt-4">
+                           <span class="skill-tag">Portfolio Management</span><span class="skill-tag">Risk-Reward Analysis</span><span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span><span class="skill-tag">yfinance</span>
+                        </div>
+                         <div class="mt-auto pt-4">
+                            <a href="https://github.com/MohammadrezaSheikholeslami84/Portfolio-Management" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Project <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                     <div class="card p-6 flex flex-col stagger-in">
+                        <h3 class="text-xl font-bold mb-2">Java Store Application</h3>
+                        <p class="mb-4 flex-grow">An online store application reminiscent of major e-commerce platforms. Developed in Java, this project features a comprehensive graphical user interface (GUI) and integrates with a MySQL database. It employs various methods for efficient program management, highlighting the importance of Object-Oriented Programming (OOP) and adhering to principles such as SOLID.</p>
+                         <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="skill-tag">Java</span><span class="skill-tag">MySQL</span><span class="skill-tag">JavaFX</span><span class="skill-tag">OOP</span><span class="skill-tag">Database Design</span>
+                        </div>
+                         <div class="mt-auto pt-4">
+                            <a href="https://github.com/MohammadrezaSheikholeslami84/Jave-Store-GUI" target="_blank" class="font-semibold text-blue-400 hover:text-blue-300">View Project <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="awards" class="stagger-in">
+                 <h2 class="text-3xl font-semibold mb-6 section-header"><i class="fas fa-trophy mr-3"></i>Awards and Honors</h2>
+                 <div class="relative">
+                     <div class="timeline-item">
+                         <h3 class="text-2xl font-bold">7th Place: ATC II (Algorithmic Trading Challenge)</h3>
+                         <p class="text-lg mb-3"><span class="font-medium" style="color: #9f5a0b;">Amirkabir University of Technology</span> | 2025</p>
+                         <p class="leading-relaxed">Achieved 7th place in the "ATC II Algorithmic Trading" competition, organized by the Computer Science Department of Amirkabir University of Technology. The competition challenged participants to develop innovative algorithmic trading strategies utilizing historical market data, showcasing advanced analytical and programming skills.</p>
+                     </div>
+                 </div>
+            </section>
+
+            <section id="contact" class="stagger-in">
+                <h2 class="text-3xl font-semibold mb-6 section-header text-center"><i class="fas fa-paper-plane mr-3"></i>Get In Touch</h2>
+                <p class="text-center max-w-2xl mx-auto mb-8">
+                    Have a question, a project proposal, or just want to connect? Feel free to send me a message. I'm always open to discussing new opportunities and collaborations.
                 </p>
-            </div>
-        </section>
+                <!-- UPDATE: Add the action attribute pointing to your Formspree endpoint -->
+                <form id="contact-form" action="https://formspree.io/f/xdkzqqok" method="POST" class="max-w-xl mx-auto">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <input type="text" id="name" name="name" placeholder="Your Name" class="form-input w-full" required>
+                        <input type="email" id="email" name="email" placeholder="Your Email" class="form-input w-full" required>
+                    </div>
+                    <textarea id="message" name="message" rows="5" placeholder="Your Message" class="form-input" required></textarea>
+                    <button type="submit" class="submit-button">Send Message</button>
+                    <p id="form-status"></p>
+                </form>
+            </section>
+        </div>
 
-        <section id="experience" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">Work Experience</h2>
-            <div class="relative pl-8">
-                <div class="timeline-item fade-up">
-                    <h3 class="text-2xl font-bold text-gray-800">Teaching Assistant: Advanced Programming</h3>
-                    <p class="text-lg text-gray-600 mb-2"><span style="color: #9f5a0b;" class="font-medium">Amirkabir
-                            University of Technology</span>, Tehran | 2025</p>
-                    <p class="text-lg text-gray-700 mb-3">Instructor: Prof. Mahdi Ghatee</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700"><b>Programming Languages:</b> Java</li>
-                        <li class="text-gray-700"><b>Concepts:</b> Object-Oriented Programming (OOP), Data Structures,
-                            Algorithms</li>
-                        <li class="text-gray-700"><b>Tools & Platforms:</b> Git, GitHub</li>
-                        <li class="text-gray-700"><b>Databases:</b> MySQL</li>
-                    </ul>
-                </div>
+        <footer class="text-white py-6 mt-16">
+            <div class="container mx-auto px-6 text-center">
+                <p class="text-sm md:text-base">&copy; <span id="current-year"></span> Mohammadreza Sheikholeslami. All rights reserved.</p>
+                <p class="text-xs mt-1" style="color: var(--text-dark);">Built with <i class="fas fa-heart text-red-500 mx-1"></i> and a lot of coffee</p>
             </div>
-        </section>
-
-        <section id="education" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">Education</h2>
-            <div class="relative pl-8">
-                <div class="timeline-item fade-up">
-                    <h3 class="text-2xl font-bold text-gray-800">Bachelor of Science in Computer Science</h3>
-                    <p class="text-lg text-gray-600 mb-2"><span style="color: #9f5a0b;" class="font-medium">Amirkabir
-                            University of Technology</span>, Tehran | Since 2023</p>
-                    <p class="text-lg text-gray-700">GPA: 18.97 / 20.0</p>
-                </div>
-                <div class="timeline-item fade-up">
-                    <h3 class="text-2xl font-bold text-gray-800">High School Diploma in Mathematics</h3>
-                    <p class="text-lg text-gray-600 mb-2"><span style="color: #9f5a0b;" class="font-medium">Allameh
-                            Helli
-                            (Sampad)</span>, Tehran | 2020 - 2023</p>
-                    <p class="text-lg text-gray-700">GPA: 18.87 / 20.0</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">Skills</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 1;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-code mr-2 text-blue-500"></i>Programming
-                        Languages</h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">Python</li>
-                        <li class="text-gray-700">Java</li>
-                        <li class="text-gray-700">C</li>
-                        <li class="text-gray-700">MQL4</li>
-                        <li class="text-gray-700">PineScript</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 2;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-brain mr-2 text-green-500"></i>AI &
-                        Data Science</h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">Machine Learning</li>
-                        <li class="text-gray-700">Deep Learning</li>
-                        <li class="text-gray-700">Natural Language Processing (NLP)</li>
-                        <li class="text-gray-700">Data Preprocessing</li>
-                        <li class="text-gray-700">Exploratory Data Analysis (EDA)</li>
-                        <li class="text-gray-700">Data Visualization</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 3;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-cogs mr-2 text-purple-500"></i>Frameworks
-                        & Libraries</h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">Scikit-Learn</li>
-                        <li class="text-gray-700">TensorFlow</li>
-                        <li class="text-gray-700">Pandas</li>
-                        <li class="text-gray-700">NumPy</li>
-                        <li class="text-gray-700">Matplotlib</li>
-                        <li class="text-gray-700">Seaborn</li>
-                        <li class="text-gray-700">NLTK</li>
-                        <li class="text-gray-700">SpaCy</li>
-                        <li class="text-gray-700">yfinance</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 4;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-database mr-2 text-orange-500"></i>Databases
-                    </h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">MySQL</li>
-                        <li class="text-gray-700">SQL Server</li>
-                        <li class="text-gray-700">PostgreSQL</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 5;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-lightbulb mr-2 text-red-500"></i>Core
-                        Concepts</h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">Object-Oriented Programming (OOP)</li>
-                        <li class="text-gray-700">Algorithms</li>
-                        <li class="text-gray-700">Data Structures</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 6;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-tools mr-2 text-teal-500"></i>Tools &
-                        Version Control</h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">Git</li>
-                        <li class="text-gray-700">GitHub</li>
-                    </ul>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 7;">
-                    <h3 class="text-xl font-bold mb-3 text-primary-blue"><i
-                            class="fas fa-globe mr-2 text-indigo-500"></i>Languages
-                    </h3>
-                    <ul class="list-disc ml-6 space-y-1">
-                        <li class="text-gray-700">English (Fluent)</li>
-                        <li class="text-gray-700">Persian (Native)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="certifications" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">Certifications</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 1;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Machine Learning Specialization</h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">Stanford
-                            University</span> | Oct 2024 - Mar 2025</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700">Built robust ML models using NumPy and scikit-learn for prediction and
-                            binary classification (linear, logistic regression).</li>
-                        <li class="text-gray-700">Developed and trained neural networks with TensorFlow for multiclass
-                            classification, incorporating decision trees and ensemble methods.</li>
-                        <li class="text-gray-700">Applied ML best practices and utilized unsupervised learning
-                            techniques
-                            (clustering, anomaly detection).</li>
-                        <li class="text-gray-700">Constructed recommender systems via collaborative filtering and
-                            content-based deep learning, along with a deep reinforcement learning model.</li>
-                    </ul>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Machine Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">Deep Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">TensorFlow</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">Keras</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">NumPy</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 6;">Pandas</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 7;">Matplotlib</span>
-                    </div>
-                    <p class="mt-4"><a
-                            href="https://www.coursera.org/account/accomplishments/specialization/FXCWB3DC2QBN"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Certification <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 2;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Professional Project-Oriented Course in ML With
-                        Python</h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span>
-                        | Aug
-                        2024 - Dec 2024</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700">Mastered project management tips for ML workflows.</li>
-                        <li class="text-gray-700">Executed data preparation and feature engineering.</li>
-                        <li class="text-gray-700">Implemented various regression and classification techniques.</li>
-                        <li class="text-gray-700">Conducted model evaluation, selection, and regularization.</li>
-                        <li class="text-gray-700">Developed Artificial Neural Networks and gained an introduction to
-                            Natural
-                            Language Processing.</li>
-                        <li class="text-gray-700">Applied unsupervised learning and clustering methods.</li>
-                    </ul>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Machine Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">Deep Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">Data Science</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">NLP</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Feature Engineering</span>
-                    </div>
-                    <p class="mt-4"><a href="https://quera.org/certificate/2RImf2z8/" target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Certification <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 3;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Task-Oriented Course in Data Analysis With
-                        Python
-                    </h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span>
-                        | Jul
-                        2024 - Nov 2024</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700">Proficient in data cleaning and preparation techniques.</li>
-                        <li class="text-gray-700">Skilled in data analysis and interpretation of results.</li>
-                        <li class="text-gray-700">Adept at creating compelling data visualizations.</li>
-                        <li class="text-gray-700">Extensive experience with NumPy, Pandas, Matplotlib, and Seaborn
-                            libraries.
-                        </li>
-                    </ul>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Data Analysis</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">NumPy</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">Pandas</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">Matplotlib</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Seaborn</span>
-                    </div>
-                    <p class="mt-4"><a href="https://quera.org/certificate/tMdKNSbd/" target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Certification <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 4;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Databases and SQL for Data Science</h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">IBM</span> |
-                        Nov
-                        2024 - Jan 2025</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700">Mastered creating, deleting, and modifying databases and tables.</li>
-                        <li class="text-gray-700">Proficient in retrieving, deleting, and modifying data.</li>
-                        <li class="text-gray-700">Skilled in filtering and grouping data for analytical purposes.</li>
-                        <li class="text-gray-700">Adept at joining tables and optimizing data processing.</li>
-                        <li class="text-gray-700">Utilized built-in functions for data manipulation and explored
-                            advanced
-                            concepts like views and stored procedures.</li>
-                    </ul>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Data Analysis</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">Data Science</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">Databases</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">SQL</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Python</span>
-                    </div>
-                    <p class="mt-4"><a
-                            href="https://www.credly.com/badges/a8906202-402d-4c72-833b-006bb99406bf/linked_in_profile"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Certification <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 5;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Task-Oriented Course in Version Control With
-                        Git
-                    </h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">Quera</span>
-                        | Jan
-                        2025</p>
-                    <ul class="list-disc ml-6 space-y-1.5">
-                        <li class="text-gray-700">Proficient in installing and running Git.</li>
-                        <li class="text-gray-700">Mastered basic Git commands (pull, push, commit).</li>
-                        <li class="text-gray-700">Skilled in working with branches, merge, and rebase operations.</li>
-                        <li class="text-gray-700">Adept at diagnosing and correcting repository errors.</li>
-                        <li class="text-gray-700">Experienced with supplementary commands (stash, cherry-pick) and
-                            platforms
-                            like GitHub and GitLab.</li>
-                    </ul>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Git</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">GitHub</span>
-                    </div>
-                    <p class="mt-4"><a
-                            href="https://quera.org/media/public/certificate/d93b4054a1a64c7d83a385e63c8bc194.png"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Certification <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-bold mb-6 section-header">Personal Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 1;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">News Text Classification</h3>
-                    <p class="text-lg text-gray-600 mb-3">Mar 2024 - Sep 2024</p>
-                    <p class="text-gray-700 leading-relaxed">This project implements a machine learning-based news text
-                        classification
-                        system. The goal is to categorize news articles into predefined categories (e.g., sports,
-                        politics, business) using their content. The project leverages various natural language
-                        processing (NLP) techniques for text preprocessing and machine learning models for accurate
-                        classification. Implemented in Python and Jupyter notebooks, it offers a clear and interactive
-                        demonstration of the underlying logic.</p>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Machine Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">NLP</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">Data Science</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">Python</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Scikit-Learn</span>
-                    </div>
-                    <p class="mt-4"><a href="https://github.com/MohammadrezaSheikholeslami84/News-Text-Classification"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Project <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 2;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">House Price Predictor</h3>
-                    <p class="text-lg text-gray-600 mb-3">Nov 2024 - Mar 2025</p>
-                    <p class="text-gray-700 leading-relaxed">This project focuses on predicting house prices using
-                        various
-                        features
-                        like area, number of bedrooms, and location. It utilizes machine learning models trained on
-                        historical housing data from Kaggle to generate accurate predictions for new properties. The
-                        primary goal is to provide a reliable model for estimating real estate values based on given
-                        property characteristics.</p>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Data Analysis</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">Data Science</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">Machine Learning</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">NumPy</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Pandas</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 6;">Matplotlib</span>
-                    </div>
-                    <p class="mt-4"><a href="https://github.com/MohammadrezaSheikholeslami84/House-Price-Predictor"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Project <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 3;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Portfolio Management System</h3>
-                    <p class="text-lg text-gray-600 mb-3">Jan 2024 - Feb 2024</p>
-                    <p class="text-gray-700 leading-relaxed">Designed to assist individuals and institutions in
-                        effectively
-                        managing their investment portfolios. The system enables users to track and analyze assets,
-                        evaluate portfolio performance, and make data-driven investment decisions. With a focus on
-                        data analysis, risk management, and visualization, the system helps users understand investment
-                        performance and assess associated risks.</p>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Portfolio Management</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">Risk-Reward Analysis</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">NumPy</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">Pandas</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Matplotlib</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 6;">yfinance</span>
-                    </div>
-                    <p class="mt-4"><a href="https://github.com/MohammadrezaSheikholeslami84/Portfolio-Management"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Project <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow card scale-in" style="--animation-order: 4;">
-                    <h3 class="text-xl font-bold text-primary-blue mb-2">Java Store Application</h3>
-                    <p class="text-lg text-gray-600 mb-3">Mar 2023</p>
-                    <p class="text-gray-700 leading-relaxed">An online store application reminiscent of major e-commerce
-                        platforms.
-                        Developed in Java, this project features a comprehensive graphical user interface (GUI) and
-                        integrates with a MySQL database. It employs various methods for efficient program management,
-                        highlighting the importance of Object-Oriented Programming (OOP) and adhering to principles such
-                        as SOLID.</p>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 1;">Java</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 2;">MySQL</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 3;">JavaFX</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 4;">OOP</span>
-                        <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full skill-button"
-                            style="--animation-order-skill: 5;">Database Design</span>
-                    </div>
-                    <p class="mt-4"><a href="https://github.com/MohammadrezaSheikholeslami84/Jave-Store-GUI"
-                            target="_blank"
-                            class="text-blue-600 hover:text-blue-800 hover:underline font-semibold transition duration-300">View
-                            Project <i class="fas fa-external-link-alt ml-1 text-sm"></i></a></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="awards" class="mb-16 p-8 rounded-2xl shadow-lg fade-up min-h-[300px]">
-            <h2 class="text-3xl font-semibold mb-6 section-header">Awards and Honors</h2>
-            <div class="relative pl-8">
-                <div class="timeline-item fade-up">
-                    <h3 class="text-2xl font-bold text-gray-800">7th Place: ATC II (Algorithmic Trading Challenge)</h3>
-                    <p class="text-lg text-gray-600 mb-3"><span class="font-medium" style="color: #9f5a0b;">Amirkabir
-                            University of Technology</span> | 2025</p>
-                    <p class="text-gray-700 leading-relaxed">Achieved 7th place in the "ATC II Algorithmic Trading"
-                        competition,
-                        organized by the Computer Science Department of Amirkabir University of Technology.
-                        The competition challenged participants to develop innovative algorithmic trading strategies
-                        utilizing historical market data, showcasing advanced analytical and programming skills.</p>
-                </div>
-            </div>
-        </section>
+        </footer>
     </div>
 
-    <footer class="bg-gray-900 text-white py-6 shadow-inner">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-sm md:text-base">&copy; <span id="current-year"></span> Mohammadreza Sheikholeslami. All
-                rights
-                reserved.</p>
-            <p class="text-xs text-gray-400 mt-1">Built with <i class="fas fa-heart text-red-500 mx-1"></i> and Tailwind
-                CSS
-            </p>
-        </div>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
     <script>
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Debounce function to limit scroll event frequency
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                // Close mobile menu after clicking a link
-                const navbarLinks = document.getElementById('navbar-links');
-                if (navbarLinks.classList.contains('active')) {
-                    navbarLinks.classList.remove('active');
-                    navbarLinks.classList.add('hidden'); // Ensure hidden class is re-applied
-                }
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- VANTA.JS INITIALIZATION ---
+            VANTA.WAVES({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x102a43,
+                shininess: 30.00,
+                waveHeight: 15.00,
+                waveSpeed: 0.65,
+                zoom: 0.75
             });
-        });
-
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function () {
+            
+            // --- GENERAL PAGE SCRIPT ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            const menuToggle = document.getElementById('menu-toggle');
             const navbarLinks = document.getElementById('navbar-links');
-            navbarLinks.classList.toggle('hidden');
-            navbarLinks.classList.toggle('active');
-        });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Stagger skill buttons within visible cards
-                    if (entry.target.classList.contains('card')) {
-                        entry.target.querySelectorAll('.skill-button').forEach((button, index) => {
-                            button.style.setProperty('--animation-order-skill', index);
-                            button.classList.add('visible');
-                        });
+            menuToggle.addEventListener('click', () => {
+                navbarLinks.classList.toggle('hidden');
+            });
+            
+            const allLinks = document.querySelectorAll('nav a, .hero-button');
+            allLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            if (!navbarLinks.classList.contains('hidden')) {
+                                navbarLinks.classList.add('hidden');
+                            }
+                            const offset = document.querySelector('nav').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                            const offsetPosition = targetId === '#home' ? 0 : elementPosition - offset;
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
                     }
-                    observer.unobserve(entry.target); // Stop observing after animation
-                }
-            });
-        }, {
-            threshold: 0.1, // Element is 10% visible
-            rootMargin: '0px 0px -50px 0px' // Adjust when element is near bottom of viewport
-        });
-
-        // Observe all animatable elements
-        document.querySelectorAll('.fade-up, .scale-in, .profile-img').forEach(element => {
-            observer.observe(element);
-        });
-
-        // Highlight active navigation link based on scroll position
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.navbar-nav a');
-
-        const highlightNavLink = debounce(() => {
-            let current = '';
-            // Get the current scroll position, considering the fixed navbar height
-            const navbarHeight = document.querySelector('nav').offsetHeight;
-            const scrollPos = window.pageYOffset + navbarHeight + 10; // Add some offset to trigger slightly earlier
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-
-                // Check if the current scroll position is within the section bounds
-                if (scrollPos >= sectionTop && scrollPos < (sectionTop + sectionHeight)) {
-                    current = section.getAttribute('id');
-                }
+                });
             });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active-link');
-                link.style.fontWeight = 'normal'; // Reset font weight
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active-link');
-                }
-            });
-        }, 50); // Debounce for smoother updates
-
-        window.addEventListener('scroll', highlightNavLink);
-        document.addEventListener('DOMContentLoaded', highlightNavLink); // Call on load
-
-        // Fallback to show elements if Intersection Observer doesn't trigger (e.g., fast scroll)
-        // Kept for robustness, though observer is primary.
-        setTimeout(() => {
-            document.querySelectorAll('.fade-up:not(.visible), .scale-in:not(.visible), .profile-img:not(.visible)').forEach(element => {
-                element.classList.add('visible');
-                if (element.classList.contains('card')) {
-                    element.querySelectorAll('.skill-button').forEach((button, index) => {
-                        button.style.setProperty('--animation-order-skill', index);
-                        button.classList.add('visible');
-                    });
-                }
-            });
-        }, 2000); // After 2 seconds, if not visible, force visible
-
-        // XLSX processing script - no changes needed for visual/robustness improvements
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-            return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-                try {
-                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                    var firstSheetName = workbook.SheetNames[0];
-                    var worksheet = workbook.Sheets[firstSheetName];
-                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                    var filteredData = jsonData.filter(row => row.some(filledCell));
-                    var headerRowIndex = filteredData.findIndex((row, index) =>
-                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                    );
-                    if (headerRowIndex === -1 || headerRowIndex > 25) {
-                        headerRowIndex = 0;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
                     }
-                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                    return csv;
-                } catch (e) {
-                    console.error(e);
-                    return "";
-                }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            document.querySelectorAll('.stagger-in, .animate-subtitle, .animate-button').forEach((el) => {
+                 observer.observe(el);
+            });
+            
+            // --- Title Animation ---
+            const titleElement = document.querySelector('.animate-title');
+            const introText = "Hello, I'm ";
+            const nameText = "Mohammadreza Sheikholeslami";
+
+            titleElement.innerHTML = ''; // Clear it
+
+            const introSpan = document.createElement('span');
+            introSpan.textContent = introText;
+            
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = nameText;
+            nameSpan.className = 'name-highlight typing-effect';
+
+            titleElement.appendChild(introSpan);
+            titleElement.appendChild(nameSpan);
+
+            // --- Scroll Buttons Visibility ---
+            const navButtons = document.querySelector('.nav-buttons');
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        navButtons.classList.add('visible');
+                    } else {
+                        navButtons.classList.remove('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            scrollObserver.observe(document.querySelector('#home'));
+
+
+            const sections = document.querySelectorAll('section');
+            const navLinksList = document.querySelectorAll('.navbar-nav a');
+            function highlightNavLink() {
+                let current = 'home';
+                const scrollY = window.pageYOffset;
+                const navHeight = document.querySelector('nav').offsetHeight;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navHeight - 100;
+                    if (scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinksList.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active-link');
+                    }
+                });
             }
-            return gk_fileData[filename] || "";
-        }
+            window.addEventListener('scroll', highlightNavLink);
+            highlightNavLink();
+
+            // --- NEW: Formspree Submission Logic ---
+            const form = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'Sending...';
+                formStatus.textContent = "";
+
+                const formData = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        formStatus.textContent = "Thank you for your message! I'll get back to you soon.";
+                        formStatus.style.color = "#22c55e"; // Green color for success
+                        form.reset();
+                    } else {
+                        const data = await response.json();
+                        if (Object.hasOwn(data, 'errors')) {
+                            formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            formStatus.textContent = "Oops! There was a problem submitting your form.";
+                        }
+                        formStatus.style.color = "#ef4444"; // Red color for error
+                    }
+                } catch (error) {
+                    formStatus.textContent = "Oops! There was a problem submitting your form.";
+                    formStatus.style.color = "#ef4444"; // Red color for error
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    setTimeout(() => {
+                        formStatus.textContent = "";
+                    }, 5000);
+                }
+            });
+        });
     </script>
 </body>
 
